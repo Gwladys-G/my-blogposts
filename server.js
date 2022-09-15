@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production'){
 const express = require ('express')
 const mongoose = require('mongoose')
 const Article = require('./models/article')
+const User = require('./models/user')
 const articleRouter = require('./routes/articles')
 const methodOverride = require('method-override')
 const app = express()
@@ -43,6 +44,10 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.get('/users', async (req, res) => {
+  let users = await User.find()
+  res.send(users)
+})
 
 // Login
 app.get('/login', (req, res) => {
@@ -69,11 +74,19 @@ app.post('/register', async (req, res) => {
       email: req.body.email,
       password: hashedPassword
     })
-    res.redirect('/login')
+    let user = new User()
+    user.name = req.body.name
+    user.email = req.body.email
+    user.password = hashedPassword
+    try{
+      user = await user.save()
+      res.redirect('/login')
+    } catch {
+      res.redirect('/register')
+    }
   } catch {
-    res.redirect('/register')
+    res.redirect('/login')
   }
-  console.log(users)
 })
 
 
