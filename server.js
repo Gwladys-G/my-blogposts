@@ -74,12 +74,12 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
+    // users.push({
+    //   id: Date.now().toString(),
+    //   name: req.body.name,
+    //   email: req.body.email,
+    //   password: hashedPassword
+    // })
     let user = new User()
     user.name = req.body.name
     user.email = req.body.email
@@ -110,7 +110,7 @@ app.delete('/logout', (req, res, next) => {
 app.use('/',checkAuthenticated, async (req,res) => {
   req.body.logger = req.user.name
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index',{ articles: articles, name: req.user.name  })
+  res.render('articles/index',{ articles: articles, name: req.user.name })
 })
 
 

@@ -20,8 +20,10 @@ router.get('/edit/:id', async (req, res) => {
 
 router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
+  let idCreator = article.createdBy.valueOf()
+  let user = await User.findById(idCreator)
   if (article == null) res.redirect('/')
-  res.render('articles/show', { article: article })
+  res.render('articles/show', { article: article , user: user})
 })
 
 router.post('/', async (req, res, next) => {
@@ -41,12 +43,13 @@ router.delete('/:id', async (req, res) => {
 
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
-    // console.log(req.user)
+    let creator = req.user
+    console.log(creator)
     let article = req.article
     article.title = req.body.title
     article.description = req.body.description
     article.markdown = req.body.markdown
-    article.createdBy = req.user
+    article.createdBy = creator._id
     try {
       article = await article.save()
       res.redirect(`/articles/${article.slug}`)
