@@ -16,12 +16,19 @@ const session = require('express-session')
 
 const initializePassport = require('./passport-config')
 initializePassport(
-  passport,
-  email => users.find(user => user.email == email),
-  id => users.find(user => user.id == id)
+ passport,
+ async function getUserByEmail(email) {
+   let users = await User.find()
+   return users.find(user => user.email == email)
+ },
+ async function getUserById (id) {
+   let users = await User.find()
+   return users.find(user => user.id == id)
+ }
 )
 
-const users = []
+
+
 
 // mongoose.connect(process.env.DATABASE_URL, () =>{
 //   console.log('DB connected');
