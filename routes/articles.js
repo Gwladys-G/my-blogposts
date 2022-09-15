@@ -41,11 +41,12 @@ router.delete('/:id', async (req, res) => {
 
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
-    console.log(req.user)
+    // console.log(req.user)
     let article = req.article
     article.title = req.body.title
     article.description = req.body.description
     article.markdown = req.body.markdown
+    article.createdBy = req.user
     try {
       article = await article.save()
       res.redirect(`/articles/${article.slug}`)

@@ -51,8 +51,8 @@ app.use('/articles', articleRouter)
 
 app.get('/users', async (req, res) => {
   let users = await User.find()
-  // res.send(users)
-  res.render('users.ejs',{ users: users })
+  res.send(users)
+  // res.render('users.ejs',{ users: users })
 })
 
 // Login
