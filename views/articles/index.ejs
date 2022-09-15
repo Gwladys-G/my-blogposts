@@ -8,6 +8,10 @@
   <title>Blog</title>
 </head>
 <body>
+  <h1>Hello <%= name %></h1>
+  <form action="/logout?_method=DELETE" method="POST">
+      <button type="suubmit"> Log Out</button>
+  </form>
   <div class="container">
     <h1 class="mb-4"> Blog Articles </h1>
     <a href="/articles/new" class="btn btn-success"> New Article</a>
