@@ -28,8 +28,6 @@ initializePassport(
 )
 
 
-
-
 // mongoose.connect(process.env.DATABASE_URL, () =>{
 //   console.log('DB connected');
 // })
@@ -41,7 +39,6 @@ app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false}))
 app.use(methodOverride('_method'))
-app.use('/articles', articleRouter)
 app.use(flash())
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -50,10 +47,12 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use('/articles', articleRouter)
 
 app.get('/users', async (req, res) => {
   let users = await User.find()
-  res.send(users)
+  // res.send(users)
+  res.render('users.ejs',{ users: users })
 })
 
 // Login
@@ -109,9 +108,11 @@ app.delete('/logout', (req, res, next) => {
 // Articles
 
 app.use('/',checkAuthenticated, async (req,res) => {
+  req.body.logger = req.user.name
   const articles = await Article.find().sort({ createdAt: 'desc' })
   res.render('articles/index',{ articles: articles, name: req.user.name  })
 })
+
 
 
 function checkAuthenticated(req, res, next) {

@@ -1,6 +1,13 @@
 const express = require('express')
 const Article = require('./../models/article')
+const User = require('./../models/user')
 const router = express.Router()
+
+
+router.get('/',async(req, res) => {
+  const articles = await Article.find().sort({ createdAt: 'desc' })
+  res.send(articles)
+})
 
 router.get('/new', (req, res) => {
   res.render('articles/new', { article: new Article() })
@@ -34,6 +41,7 @@ router.delete('/:id', async (req, res) => {
 
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
+    console.log(req.user)
     let article = req.article
     article.title = req.body.title
     article.description = req.body.description
