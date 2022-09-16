@@ -49,11 +49,31 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use('/articles', articleRouter)
 
+// users
 app.get('/users', async (req, res) => {
   let users = await User.find()
   res.send(users)
-  // res.render('users.ejs',{ users: users })
+  // res.render('./users/users.ejs',{ users: users })
 })
+
+// app.get('users/:id', async (req, res) => {
+//   const user = await User.findOne({ id: req.params.slug })
+//   if (user == null) res.redirect('/')
+//   res.render('users/show', { user: user })
+// })
+
+// app.get('users/edit/:id', async (req, res) => {
+//   const user = await User.findById(req.params.id)
+//   res.render('users/edit', { user: user })
+// })
+
+app.delete('/users/:id', async (req, res) => {
+  await User.findByIdAndDelete(req.params.id)
+  res.redirect('/users')
+})
+
+
+
 
 // Login
 app.get('/login', (req, res) => {

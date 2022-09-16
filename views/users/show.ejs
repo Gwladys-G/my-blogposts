@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title>user</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-1"><%= user.name %></h1>
+    <div class="text-muted mb-2"><%= article.createdAt.toLocaleDateString()%>
+    </div>
+    <div class="text-muted mb-2">Posted by: <%= user.email %> / <%= user.email %>
+    </div>
+    <form action="/users/<%= user.id %>?_method=DELETE" method="POST" class="d-inline">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+  </div>
+</body>
+</html>
