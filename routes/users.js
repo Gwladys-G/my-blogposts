@@ -19,7 +19,7 @@ router.delete('/:id', async (req, res) => {
 
 async function checkAdmin (req, res, next) {
   if (req.isAuthenticated()) {
-    let findadmin = await User.findById("6324c7d8a079f9740f7d9ea7")
+    let findadmin = await User.findById("6324e0793df8acc1d72f7e5e")
     let admin = findadmin._id.valueOf()
     let currentUser = req.user.id
     if(currentUser === admin){
