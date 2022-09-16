@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const Article = require('./models/article')
 const User = require('./models/user')
 const articleRouter = require('./routes/articles')
+const userRouter = require('./routes/users')
 const methodOverride = require('method-override')
 const app = express()
 const bcrypt = require('bcrypt')
@@ -48,29 +49,19 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use('/articles', articleRouter)
+app.use('/users', userRouter)
 
 // users
-app.get('/users', async (req, res) => {
-  let users = await User.find()
-  res.send(users)
-  // res.render('./users/users.ejs',{ users: users })
-})
-
-// app.get('users/:id', async (req, res) => {
-//   const user = await User.findOne({ id: req.params.slug })
-//   if (user == null) res.redirect('/')
-//   res.render('users/show', { user: user })
+// app.get('/users', async (req, res) => {
+//   let users = await User.find()
+//   res.send(users)
+//   // res.render('./users/users.ejs',{ users: users })
 // })
 
-// app.get('users/edit/:id', async (req, res) => {
-//   const user = await User.findById(req.params.id)
-//   res.render('users/edit', { user: user })
+// app.delete('/users/:id', async (req, res) => {
+//   await User.findByIdAndDelete(req.params.id)
+//   res.redirect('/users')
 // })
-
-app.delete('/users/:id', async (req, res) => {
-  await User.findByIdAndDelete(req.params.id)
-  res.redirect('/users')
-})
 
 
 
