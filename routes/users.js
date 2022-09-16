@@ -10,6 +10,8 @@ router.get('/', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
+  let user = await User.findById(req.params.id)
+  await Article.deleteMany({ createdBy: user })
   await User.findByIdAndDelete(req.params.id)
   res.redirect('/users')
 })

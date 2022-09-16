@@ -51,23 +51,10 @@ app.use(passport.session())
 app.use('/articles', articleRouter)
 app.use('/users', userRouter)
 
-// users
-// app.get('/users', async (req, res) => {
-//   let users = await User.find()
-//   res.send(users)
-//   // res.render('./users/users.ejs',{ users: users })
-// })
-
-// app.delete('/users/:id', async (req, res) => {
-//   await User.findByIdAndDelete(req.params.id)
-//   res.redirect('/users')
-// })
-
-
 
 
 // Login
-app.get('/login', (req, res) => {
+app.get('/login',checkNotAuthenticated, (req, res) => {
   res.render('login.ejs')
 })
 
@@ -85,12 +72,6 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    // users.push({
-    //   id: Date.now().toString(),
-    //   name: req.body.name,
-    //   email: req.body.email,
-    //   password: hashedPassword
-    // })
     let user = new User()
     user.name = req.body.name
     user.email = req.body.email
@@ -106,9 +87,7 @@ app.post('/register', async (req, res) => {
   }
 })
 
-
 // Logout
-
 app.delete('/logout', (req, res, next) => {
   req.logout(function(err) {
     if (err) { return next(err); }
