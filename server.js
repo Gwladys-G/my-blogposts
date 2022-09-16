@@ -118,4 +118,4 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
-app.listen(PORT);
+app.listen(`0.0.0.0:$PORT`)
