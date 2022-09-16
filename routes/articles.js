@@ -6,11 +6,11 @@ const router = express.Router()
 
 router.get('/',async(req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.send(articles)
+  // res.send(articles)
 })
 
 router.get('/new', (req, res) => {
-  res.render('articles/new', { article: new Article() })
+  res.render('articles/new', { article: new Article(), currentUser: req.user  })
 })
 
 router.get('/edit/:id', async (req, res) => {

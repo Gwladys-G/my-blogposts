@@ -1,15 +1,15 @@
-<div class="form-froup">
+<div class="form-froup my-1">
   <label for="title">Title</label>
   <input required type="text" name="title" id="title" class="form-control" value="<%= article.title %>">
 </div>
-<div class="form-froup">
-  <label for="description">Description</label>
+<div class="form-froup my-1">
+  <label for="description" class="pt-2">Description</label>
   <textarea name="description" id="description" class="form-control"><%= article.description %></textarea>
 </div>
-<div class="form-froup">
-  <label for="markdown">Mardown</label>
+<div class="form-froup my-1">
+  <label for="markdown"class="pt-2">Markdown article content  <a href="https://www.markdownguide.org/basic-syntax/" target="_blank"><i class="fa-solid fa-circle-info text-black-50"></i></a></label>
   <textarea required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
 
-<a href="/" class="btn btn-secondary">Cancel</a>
-<button type="submit" class="btn btn-primary">Save</button>
+<a href="/" class="btn btn-secondary my-2">Cancel</a>
+<button type="submit" class="btn btn-primary my-2">Post Article</button>

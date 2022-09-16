@@ -29,12 +29,12 @@ initializePassport(
 )
 
 
-// mongoose.connect(process.env.DATABASE_URL, () =>{
-//   console.log('DB connected');
-// })
-mongoose.connect('mongodb://localhost/blog', () =>{
+mongoose.connect(process.env.DATABASE_URL, () =>{
   console.log('DB connected');
 })
+// mongoose.connect('mongodb://localhost/blog', () =>{
+//   console.log('DB connected');
+// })
 
 app.set('view engine', 'ejs')
 

@@ -8,13 +8,15 @@
   <title>Blog</title>
 </head>
 <body>
-  <h1>Hello <%= currentUser.name %></h1>
-  <form action="/logout?_method=DELETE" method="POST">
-      <button type="suubmit"> Log Out</button>
-  </form>
+  <nav class="navbar bg-light">
+    <form action="/logout?_method=DELETE" method="POST" class="container-fluid justify-content-end">
+      <button type="submit" class="btn btn-secondary"> Log Out</button>
+    </form>
+    <h1 class="px-2">Hello <%= currentUser.name %></h1>
+  </nav>
   <div class="container">
     <h1 class="mb-4"> Blog Articles </h1>
-    <a href="/articles/new" class="btn btn-success"> New Article</a>
+    <a href="/articles/new" class="btn btn-success"> Post an Article</a>
     <% articles.forEach (article => { %>
         <div class="card mt-4">
           <div class="card-body">
