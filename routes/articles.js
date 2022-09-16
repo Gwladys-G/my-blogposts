@@ -21,9 +21,9 @@ router.get('/edit/:id', async (req, res) => {
 router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
   let idCreator = article.createdBy.valueOf()
-  let user = await User.findById(idCreator)
+  let author = await User.findById(idCreator)
   if (article == null) res.redirect('/')
-  res.render('articles/show', { article: article , user: user})
+  res.render('articles/show', { article: article , author: author, currentUser: req.user })
 })
 
 router.post('/', async (req, res, next) => {

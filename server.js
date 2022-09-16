@@ -128,9 +128,8 @@ app.delete('/logout', (req, res, next) => {
 // Articles
 
 app.use('/',checkAuthenticated, async (req,res) => {
-  req.body.logger = req.user.name
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index',{ articles: articles, name: req.user.name })
+  res.render('articles/index',{ articles: articles, currentUser: req.user })
 })
 
 

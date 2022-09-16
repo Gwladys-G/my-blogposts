@@ -8,7 +8,7 @@
   <title>Blog</title>
 </head>
 <body>
-  <h1>Hello <%= name %></h1>
+  <h1>Hello <%= currentUser.name %></h1>
   <form action="/logout?_method=DELETE" method="POST">
       <button type="suubmit"> Log Out</button>
   </form>
@@ -21,15 +21,18 @@
             <h4 class="card-title"><%= article.title %></h4>
             <div class="card-subtile text-muted mb-2">
               <%= article.createdAt.toLocaleDateString()%>
+              <%= article.createdAt.toLocaleDateString()%>
             </div>
             <div class="card-text mb-2">
               <%= article.description%>
             </div>
             <a href="articles/<%= article.slug%>" class="btn btn-primary">Read More</a>
-            <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
-            <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
+            <% if (article.createdBy.valueOf() === currentUser.id) {%>
+              <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+              <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            <%}%>
           </div>
         </div>
     <% }) %>
